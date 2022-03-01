@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title> Slideshow </title>
+    <style>
+        .box {
+            background-color: white;
+            border: 15px solid black;
+            align: justify;
+            width:40%;
+            min-width:300px;
+            align-content: center;
+            font-family: Gill Sans, sans-serif;
+            font-size: 30px;
+            padding: 40px;
+            margin: 20px;
+        }
+        .button {
+            background-color: black;
+            width: 15%;
+            min-width: 100px;
+            height: 50px;
+            font-family: Gill Sans, sans-serif;
+            font-size: 40px;
+            color: white;
+            border: 10px;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+    <script
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script>
+    <script>
+        images = ["image1.jpg", "image2.jpg", "image3.jpg", "image4.jpg"];
+        currIndex = 0;
+        pause = false;
+        function fadeinImg() {
+            if (pause == false) {
+                currIndex++;
+                currIndex = currIndex % images.length;
+                $("#slides img").attr("src", "images/"+images[currIndex]);
+                $("#slides img").fadeIn(3000, fadeoutImg);
+            }
+        }
+        function fadeoutImg() {
+            if (pause == false) {
+                $("#slides img").fadeOut(3000, fadeinImg);
+            }
+        }
+        function fix() {
+            $("#slides img").attr("src", "images/"+images[currIndex]);
+        }
+        $(document).ready(function() {
+            $("#start").click(function(){
+                pause = false;
+                fadeoutImg();
+            });
+            $("#stop").click(function(){
+                pause = true;
+                $("#slides img").fadeIn(3000, fix);
+            });
+        });
+    </script>
+</head>
+
+<body style="background-color: lightgray">
+    <center>
+    <div class="box"> Welcome to the SLIDESHOW</div>
+        <button class="button" id="start">Start</button>
+        <button class="button" id="stop">Stop</button></div>
+    <div class="box">
+        <div class="slides" id="slides">
+            <img src="images/image1.jpg" width=100%>
+        </div>
+    </div>
+    </center>
+</body>
+</html>
